@@ -1,11 +1,10 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { useState } from "react"
-import Image from "next/image"
-import { ChevronLeft, ChevronRight, Quote } from "lucide-react"
-import { cn } from "@/lib/utils"
-
+import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
+import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
+import Image from "next/image";
+import { useState } from "react";
 
 const testimonials = [
   {
@@ -32,18 +31,20 @@ const testimonials = [
     position: "Social Media Manager, Pulse Brands",
     image: "/images/kenneth.jpg",
   },
-]
+];
 
 export default function Testimonials() {
-  const [activeIndex, setActiveIndex] = useState(0)
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const nextTestimonial = () => {
-    setActiveIndex((prev) => (prev + 1) % testimonials.length)
-  }
+    setActiveIndex((prev) => (prev + 1) % testimonials.length);
+  };
 
   const prevTestimonial = () => {
-    setActiveIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length)
-  }
+    setActiveIndex(
+      (prev) => (prev - 1 + testimonials.length) % testimonials.length
+    );
+  };
 
   return (
     <section className="container mx-auto px-4 py-16 md:py-24">
@@ -73,9 +74,14 @@ export default function Testimonials() {
                     position: activeIndex === index ? "relative" : "absolute",
                   }}
                   transition={{ duration: 0.5 }}
-                  className={cn("text-center", activeIndex !== index && "absolute inset-0")}
+                  className={cn(
+                    "text-center",
+                    activeIndex !== index && "absolute inset-0"
+                  )}
                 >
-                  <p className="text-xl md:text-2xl text-white/80 italic mb-8">&ldquo;{testimonial.content}&rdquo;</p>
+                  <p className="text-xl md:text-2xl text-white/80 italic mb-8">
+                    {testimonial.content}
+                  </p>
                   <div className="flex flex-col items-center">
                     <div className="w-16 h-16 rounded-full overflow-hidden mb-4 border-2 border-white/10">
                       <Image
@@ -86,7 +92,9 @@ export default function Testimonials() {
                         className="w-full h-full object-cover"
                       />
                     </div>
-                    <h4 className="text-lg font-semibold">{testimonial.author}</h4>
+                    <h4 className="text-lg font-semibold">
+                      {testimonial.author}
+                    </h4>
                     <p className="text-white/60">{testimonial.position}</p>
                   </div>
                 </motion.div>
@@ -113,5 +121,5 @@ export default function Testimonials() {
         </div>
       </div>
     </section>
-  )
+  );
 }
