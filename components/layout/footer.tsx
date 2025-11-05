@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { Linkedin } from "lucide-react";
 import {
   SiFacebook,
   SiInstagram,
+  SiLinkerd,
   SiTiktok,
   SiX,
 } from "@icons-pack/react-simple-icons";
@@ -44,7 +44,7 @@ export default function Footer() {
                 href="#"
                 className="w-10 h-10 rounded-full bg-white/[0.03] border border-white/[0.08] flex items-center justify-center text-white/60 hover:text-white transition-colors"
               >
-                <Linkedin size={20} />
+                <SiLinkerd size={20} />
               </a>
               <a
                 href="#"

@@ -2,7 +2,8 @@
 
 import { motion } from "framer-motion"
 import Image from "next/image"
-import { Linkedin, Twitter } from "lucide-react"
+import { Linkedin } from "lucide-react"
+import { SiX } from "@icons-pack/react-simple-icons"
 
 const team = [
   {
@@ -14,7 +15,7 @@ const team = [
   {
     name: "Phiona Komukyeya",
     position: "COO & Co-Founder",
-    bio: "Phiona brings creative excellence to every project, ensuring our clients' brands stand out in the digital landscape.",
+    bio: "Phiona brings creative excellence to every project, ensuring our clients' brands stand out.",
     image: "/images/phiona.jpeg?height=400&width=400",
   },
   {
@@ -80,7 +81,7 @@ export default function TeamSection() {
                     href="#"
                     className="w-8 h-8 rounded-full bg-white/[0.03] border border-white/[0.08] flex items-center justify-center text-white/60 hover:text-white transition-colors"
                   >
-                    <Twitter className="h-4 w-4" />
+                    <SiX className="h-4 w-4" />
                   </a>
                   <a
                     href="#"

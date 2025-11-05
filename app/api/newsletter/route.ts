@@ -45,6 +45,7 @@ export async function POST(request: Request) {
 
     // Validate request body
     const body = await request.json();
+    
     if (DEBUG) console.log("Request body:", body);
 
     const { email } = subscribeSchema.parse(body);
