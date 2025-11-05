@@ -36,15 +36,6 @@ const testimonials = [
 export default function Testimonials() {
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const escapeHtml = (value: string) =>
-    value
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/\"/g, "&quot;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#39;");
-
   const nextTestimonial = () => {
     setActiveIndex((prev) => (prev + 1) % testimonials.length);
   };
@@ -88,12 +79,9 @@ export default function Testimonials() {
                     activeIndex !== index && "absolute inset-0"
                   )}
                 >
-                  <p
-                    className="text-xl md:text-2xl text-white/80 italic mb-8"
-                    dangerouslySetInnerHTML={{
-                      __html: escapeHtml(testimonial.content),
-                    }}
-                  />
+                  <p className="text-xl md:text-2xl text-white/80 italic mb-8">
+                    {testimonial.content}
+                  </p>
                   <div className="flex flex-col items-center">
                     <div className="w-16 h-16 rounded-full overflow-hidden mb-4 border-2 border-white/10">
                       <Image
