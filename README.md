@@ -8,26 +8,26 @@ A modern marketing website for Quantum Leap Digital built with Next.js App Route
 - React 19, TypeScript
 - Tailwind CSS v4
 - Framer Motion
-- SendGrid (email)
-- Supabase (newsletter subscribers)
+- Resend (email)
+- Neon Postgres (`@neondatabase/serverless`)
 
 ### Prerequisites
 
 - Node.js 18+ (recommended: LTS)
 - npm (or yarn/pnpm/bun)
+- Neon Postgres database (or compatible PostgreSQL database)
 
 ### Environment Variables
 
 Create a `.env.local` at the project root:
 
 ```env
-# Supabase (public keys for client usage)
-NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+# Neon Postgres Database
+DATABASE_URL=your-neon-postgres-connection-string
 
-# SendGrid (server)
-SENDGRID_API_KEY=your-sendgrid-api-key
-SENDER_EMAIL=no-reply@yourdomain.com
+# Resend (email service)
+RESEND_API_KEY=your-resend-api-key
+SENDER_EMAIL=onboarding@resend.dev
 ```
 
 ### Getting Started
@@ -81,7 +81,56 @@ public/             # Static assets (e.g., images)
 ### Newsletter API
 
 - Endpoint: `POST /api/newsletter` with JSON `{ email: string }`.
-- Stores subscribers in Supabase table `subscribers` and sends a welcome email via SendGrid.
+- Stores subscribers in Postgres table `subscribers` and sends a welcome email via Resend.
+
+### Database Setup
+
+1. Create a Neon Postgres database at [neon.tech](https://neon.tech)
+2. Copy your connection string and add it to `.env.local` as `DATABASE_URL`
+3. Run the migration SQL in your Neon SQL Editor:
+
+```bash
+# Copy and paste the contents of migrations/001_create_subscribers_table.sql
+# into your Neon SQL Editor and execute it
+```
+
+Alternatively, you can use any PostgreSQL client (like `psql`) with your connection string:
+
+```bash
+psql "your-neon-connection-string" -f migrations/001_create_subscribers_table.sql
+```
+
+### Database Schema
+
+The `subscribers` table structure:
+
+```sql
+CREATE TABLE subscribers (
+  id SERIAL PRIMARY KEY,
+  email VARCHAR(255) UNIQUE NOT NULL,
+  status VARCHAR(50) DEFAULT 'active',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+See `migrations/001_create_subscribers_table.sql` for the complete migration with indexes.
+
+### Resend Setup
+
+1. **Create a Resend account**: Go to [resend.com](https://resend.com) and sign up (free tier: 3,000 emails/month)
+2. **Get your API key**:
+   - After signing up, go to **API Keys** in the dashboard
+   - Click **Create API Key**
+   - Give it a name (e.g., "Quantum Leap Newsletter")
+   - Copy the API key (starts with `re_`)
+3. **Set sender email**:
+   - For testing: Use `onboarding@resend.dev` (works immediately)
+   - For production: Verify your domain in Resend dashboard for better deliverability
+4. **Add to environment variables**:
+   ```env
+   RESEND_API_KEY=re_your_api_key_here
+   SENDER_EMAIL=onboarding@resend.dev  # or your verified domain email
+   ```
 
 ### Deployment
 

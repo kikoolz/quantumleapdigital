@@ -1,39 +1,42 @@
-import { supabase } from "./supabase";
+import { db } from "./supabase";
 
 export async function getAllActiveSubscribers() {
-  const { data: subscribers, error } = await supabase
-    .from("subscribers")
-    .select("email")
-    .eq("status", "active");
+  try {
+    const subscribers = (await db`
+      SELECT email 
+      FROM subscribers 
+      WHERE status = 'active'
+    `) as Array<{ email: string }>;
 
-  if (error) {
+    return subscribers;
+  } catch {
     throw new Error("Failed to fetch subscribers");
   }
-
-  return subscribers;
 }
 
 export async function unsubscribeUser(email: string) {
-  const { error } = await supabase
-    .from("subscribers")
-    .update({ status: "unsubscribed" })
-    .eq("email", email);
+  try {
+    await db`
+      UPDATE subscribers 
+      SET status = 'unsubscribed' 
+      WHERE email = ${email}
+    `;
 
-  if (error) {
+    return true;
+  } catch {
     throw new Error("Failed to unsubscribe user");
   }
-
-  return true;
 }
 
 export async function addSubscriber(email: string) {
-  const { error } = await supabase
-    .from("subscribers")
-    .insert([{ email, status: "active" }]);
+  try {
+    await db`
+      INSERT INTO subscribers (email, status) 
+      VALUES (${email}, 'active')
+    `;
 
-  if (error) {
+    return true;
+  } catch {
     throw new Error("Failed to add subscriber");
   }
-
-  return true;
 }

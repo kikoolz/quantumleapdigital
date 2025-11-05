@@ -1,19 +1,27 @@
-import { createClient } from "@supabase/supabase-js";
+import { neon } from "@neondatabase/serverless";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+let sql: ReturnType<typeof neon> | null = null;
 
-if (!supabaseUrl) {
-  throw new Error("Missing env.NEXT_PUBLIC_SUPABASE_URL");
+function getDatabase() {
+  if (sql) {
+    return sql;
+  }
+
+  const databaseUrl = process.env.DATABASE_URL;
+
+  if (!databaseUrl) {
+    throw new Error("Missing env.DATABASE_URL");
+  }
+
+  sql = neon(databaseUrl);
+  return sql;
 }
 
-if (!supabaseAnonKey) {
-  throw new Error("Missing env.NEXT_PUBLIC_SUPABASE_ANON_KEY");
-}
-
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
-  auth: {
-    persistSession: false,
-    autoRefreshToken: false,
+export const db = new Proxy({} as ReturnType<typeof neon>, {
+  get(_target, prop) {
+    return getDatabase()[prop as keyof ReturnType<typeof neon>];
   },
 });
+
+// For backward compatibility, export as supabase
+export const supabase = db;

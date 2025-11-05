@@ -1,13 +1,15 @@
+import { db } from "@/lib/supabase";
 import { NextResponse } from "next/server";
+import { Resend } from "resend";
 import { z } from "zod";
-import sgMail from "@sendgrid/mail";
-import { supabase } from "@/lib/supabase";
 
-// Initialize SendGrid with the API key
-if (!process.env.SENDGRID_API_KEY) {
-  throw new Error("SENDGRID_API_KEY is not configured");
+// Initialize Resend lazily
+function getResend() {
+  if (!process.env.RESEND_API_KEY) {
+    throw new Error("RESEND_API_KEY is not configured");
+  }
+  return new Resend(process.env.RESEND_API_KEY);
 }
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 // Email validation schema
 const subscribeSchema = z.object({
@@ -45,7 +47,7 @@ export async function POST(request: Request) {
 
     // Validate request body
     const body = await request.json();
-    
+
     if (DEBUG) console.log("Request body:", body);
 
     const { email } = subscribeSchema.parse(body);
@@ -53,69 +55,65 @@ export async function POST(request: Request) {
 
     // Check for existing subscriber
     if (DEBUG) console.log("Checking for existing subscriber...");
-    
-    let existingUser;
-    let fetchError;
-    
+
     try {
-      const result = await supabase
-        .from("subscribers")
-        .select("email")
-        .eq("email", email)
-        .single();
-      
-      existingUser = result.data;
-      fetchError = result.error;
+      const existingUsers = (await db`
+        SELECT email 
+        FROM subscribers 
+        WHERE email = ${email}
+        LIMIT 1
+      `) as Array<{ email: string }>;
+
+      if (existingUsers.length > 0) {
+        if (DEBUG) console.log("Existing subscriber found:", existingUsers[0]);
+        return NextResponse.json(
+          { error: "This email is already subscribed." },
+          { status: 409 }
+        );
+      }
+
+      // Add new subscriber to database
+      if (DEBUG) console.log("Adding new subscriber to database...");
+      await db`
+        INSERT INTO subscribers (email, status) 
+        VALUES (${email}, 'active')
+      `;
     } catch (error) {
-      console.error("Database connection error:", error);
+      console.error("Database error:", error);
+      // Check if it's a unique constraint violation (duplicate email)
+      if (
+        error instanceof Error &&
+        (error.message.includes("duplicate") ||
+          error.message.includes("unique") ||
+          error.message.includes("UNIQUE constraint"))
+      ) {
+        return NextResponse.json(
+          { error: "This email is already subscribed." },
+          { status: 409 }
+        );
+      }
+
       // If it's a network error, provide a more helpful message
       if (error instanceof Error && error.message.includes("fetch failed")) {
         return NextResponse.json(
-          { error: "Database connection failed. Please check your Supabase configuration." },
+          {
+            error:
+              "Database connection failed. Please check your database configuration.",
+          },
           { status: 503 }
         );
       }
-      throw error;
-    }
 
-    if (fetchError && fetchError.code !== "PGRST116") {
-      console.error("Database query error:", {
-        code: fetchError.code,
-        message: fetchError.message,
-        details: fetchError.details,
-      });
-      throw new Error("Database query failed");
-    }
-
-    if (existingUser) {
-      if (DEBUG) console.log("Existing subscriber found:", existingUser);
-      return NextResponse.json(
-        { error: "This email is already subscribed." },
-        { status: 409 }
-      );
-    }
-
-    // Add new subscriber to database
-    if (DEBUG) console.log("Adding new subscriber to database...");
-    const { error: insertError } = await supabase
-      .from("subscribers")
-      .insert([{ email, status: "active" }]);
-
-    if (insertError) {
-      console.error("Database insert error:", {
-        code: insertError.code,
-        message: insertError.message,
-        details: insertError.details,
-      });
-      throw new Error("Failed to store subscriber");
+      throw new Error("Database operation failed");
     }
 
     // Send welcome email
     if (DEBUG) console.log("Sending welcome email...");
     try {
-      await sgMail.send({
-        to: email,
+      const resend = getResend();
+      await resend.emails.send({
         from: process.env.SENDER_EMAIL!,
+        to: email,
         subject: "Welcome to Quantum Leap Digital Newsletter!",
         html: `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
@@ -130,7 +128,7 @@ export async function POST(request: Request) {
       });
       if (DEBUG) console.log("Welcome email sent successfully");
     } catch (emailError) {
-      console.error("SendGrid error:", emailError);
+      console.error("Resend error:", emailError);
       // Continue execution - don't throw error for email failure
     }
 
