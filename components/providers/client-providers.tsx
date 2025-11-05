@@ -10,7 +10,7 @@ const LiveChat = dynamic(() => import("@/components/shared/live-chat"), {
 export function ClientProviders() {
   return (
     <>
-      <WhatsAppButton phoneNumber="+971524419186" />
+      <WhatsAppButton phoneNumber="+971523972152" />
       <LiveChat />
     </>
   );

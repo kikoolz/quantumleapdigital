@@ -53,11 +53,30 @@ export async function POST(request: Request) {
 
     // Check for existing subscriber
     if (DEBUG) console.log("Checking for existing subscriber...");
-    const { data: existingUser, error: fetchError } = await supabase
-      .from("subscribers")
-      .select("email")
-      .eq("email", email)
-      .single();
+    
+    let existingUser;
+    let fetchError;
+    
+    try {
+      const result = await supabase
+        .from("subscribers")
+        .select("email")
+        .eq("email", email)
+        .single();
+      
+      existingUser = result.data;
+      fetchError = result.error;
+    } catch (error) {
+      console.error("Database connection error:", error);
+      // If it's a network error, provide a more helpful message
+      if (error instanceof Error && error.message.includes("fetch failed")) {
+        return NextResponse.json(
+          { error: "Database connection failed. Please check your Supabase configuration." },
+          { status: 503 }
+        );
+      }
+      throw error;
+    }
 
     if (fetchError && fetchError.code !== "PGRST116") {
       console.error("Database query error:", {

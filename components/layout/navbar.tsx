@@ -60,7 +60,7 @@ export default function Navbar() {
           ))}
           <Button
             asChild
-            className="bg-gradient-to-r from-indigo-500 to-rose-500 hover:from-indigo-600 hover:to-rose-600 text-white"
+            className="bg-linear-to-r from-indigo-500 to-rose-500 hover:from-indigo-600 hover:to-rose-600 text-white"
           >
             <Link href="/contact">Get Started</Link>
           </Button>
@@ -76,7 +76,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {isOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-[#030303]/95 backdrop-blur-md border-t border-white/[0.08] py-4">
+        <div className="md:hidden absolute top-full left-0 right-0 bg-[#030303]/95 backdrop-blur-md border-t border-white/8 py-4">
           <div className="container mx-auto px-4 flex flex-col space-y-4">
             {navItems.map((item) => (
               <Link
@@ -95,7 +95,7 @@ export default function Navbar() {
             ))}
             <Button
               asChild
-              className="bg-gradient-to-r from-indigo-500 to-rose-500 hover:from-indigo-600 hover:to-rose-600 text-white w-full mt-4"
+              className="bg-linear-to-r from-indigo-500 to-rose-500 hover:from-indigo-600 hover:to-rose-600 text-white w-full mt-4"
             >
               <Link href="/contact" onClick={() => setIsOpen(false)}>
                 Get Started

@@ -38,7 +38,7 @@ const values = [
 
 export default function ValueProposition() {
   return (
-    <section className="container mx-auto px-4 py-16 md:py-24 bg-white/[0.02] rounded-3xl my-16">
+    <section className="container mx-auto px-4 py-16 md:py-24 bg-white/2 rounded-3xl my-16">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -46,7 +46,7 @@ export default function ValueProposition() {
         transition={{ duration: 0.6 }}
         className="text-center mb-16"
       >
-        <h2 className="text-3xl md:text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-white/90 to-rose-300">
+        <h2 className="text-3xl md:text-4xl font-bold mb-6 bg-clip-text text-transparent bg-linear-to-r from-indigo-300 via-white/90 to-rose-300">
           Our Core Values
         </h2>
         <p className="text-white/60 max-w-2xl mx-auto">
@@ -63,8 +63,8 @@ export default function ValueProposition() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: index * 0.1 }}
           >
-            <div className="bg-white/[0.03] border border-white/[0.08] rounded-xl p-6 h-full">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-500/30 to-rose-500/30 flex items-center justify-center mb-6">
+            <div className="bg-white/3 border border-white/8 rounded-xl p-6 h-full">
+              <div className="w-12 h-12 rounded-full bg-linear-to-br from-indigo-500/30 to-rose-500/30 flex items-center justify-center mb-6">
                 {value.icon}
               </div>
               <h3 className="text-xl font-semibold mb-3">{value.title}</h3>

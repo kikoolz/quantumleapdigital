@@ -10,7 +10,7 @@ import Logo from "@/components/ui/logo";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#050505] border-t border-white/[0.08] pt-16 pb-8">
+    <footer className="bg-[#050505] border-t border-white/8 pt-16 pb-8">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           <div>
@@ -24,31 +24,31 @@ export default function Footer() {
             <div className="flex space-x-4">
               <a
                 href="#"
-                className="w-10 h-10 rounded-full bg-white/[0.03] border border-white/[0.08] flex items-center justify-center text-white/60 hover:text-white transition-colors"
+                className="w-10 h-10 rounded-full bg-white/3 border border-white/8 flex items-center justify-center text-white/60 hover:text-white transition-colors"
               >
                 <SiFacebook size={20} />
               </a>
               <a
                 href="#"
-                className="w-10 h-10 rounded-full bg-white/[0.03] border border-white/[0.08] flex items-center justify-center text-white/60 hover:text-white transition-colors"
+                className="w-10 h-10 rounded-full bg-white/3 border border-white/8 flex items-center justify-center text-white/60 hover:text-white transition-colors"
               >
                 <SiX size={20} />
               </a>
               <a
                 href="#"
-                className="w-10 h-10 rounded-full bg-white/[0.03] border border-white/[0.08] flex items-center justify-center text-white/60 hover:text-white transition-colors"
+                className="w-10 h-10 rounded-full bg-white/3 border border-white/8 flex items-center justify-center text-white/60 hover:text-white transition-colors"
               >
                 <SiInstagram size={20} />
               </a>
               <a
                 href="#"
-                className="w-10 h-10 rounded-full bg-white/[0.03] border border-white/[0.08] flex items-center justify-center text-white/60 hover:text-white transition-colors"
+                className="w-10 h-10 rounded-full bg-white/3 border border-white/8 flex items-center justify-center text-white/60 hover:text-white transition-colors"
               >
                 <SiLinkerd size={20} />
               </a>
               <a
                 href="#"
-                className="w-10 h-10 rounded-full bg-white/[0.03] border border-white/[0.08] flex items-center justify-center text-white/60 hover:text-white transition-colors"
+                className="w-10 h-10 rounded-full bg-white/3 border border-white/8 flex items-center justify-center text-white/60 hover:text-white transition-colors"
               >
                 <SiTiktok size={20} />
               </a>
@@ -108,7 +108,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-white/[0.08] pt-8 mt-8 text-center text-white/40 text-sm">
+        <div className="border-t border-white/8 pt-8 mt-8 text-center text-white/40 text-sm">
           <p>
             &copy; {new Date().getFullYear()} Quantum Leap Digital. All rights
             reserved.

@@ -14,9 +14,9 @@ export async function generateStaticParams() {
   }))
 }
 
-export async function generateMetadata({ params }: { params: { service: string } }) {
+export async function generateMetadata({ params }: { params: Promise<{ service: string }> }) {
   // Ensure params is properly awaited
-  const serviceSlug = await Promise.resolve(params.service)
+  const { service: serviceSlug } = await params
   const service = services.find((s) => s.slug === serviceSlug)
 
   if (!service) {
@@ -32,9 +32,9 @@ export async function generateMetadata({ params }: { params: { service: string }
   }
 }
 
-export default async function ServicePage({ params }: { params: { service: string } }) {
+export default async function ServicePage({ params }: { params: Promise<{ service: string }> }) {
   // Make the component async and await params
-  const serviceSlug = await Promise.resolve(params.service)
+  const { service: serviceSlug } = await params
   const service = services.find((s) => s.slug === serviceSlug)
 
   if (!service) {
@@ -55,7 +55,7 @@ export default async function ServicePage({ params }: { params: { service: strin
       <section className="container mx-auto px-4 py-8 md:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="order-2 md:order-1">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-white/90 to-rose-300">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 bg-clip-text text-transparent bg-linear-to-r from-indigo-300 via-white/90 to-rose-300">
               {service.title}
             </h2>
             <div className="prose prose-invert prose-lg max-w-none opacity-80">
@@ -74,8 +74,8 @@ export default async function ServicePage({ params }: { params: { service: strin
           <h2 className="text-3xl font-bold mb-12 text-center">Key Benefits</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
             {service.benefits.map((benefit, index) => (
-              <div key={index} className="bg-white/[0.03] border border-white/[0.08] rounded-xl p-6">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-500/30 to-rose-500/30 flex items-center justify-center mb-4">
+              <div key={index} className="bg-white/3 border border-white/8 rounded-xl p-6">
+                <div className="w-12 h-12 rounded-full bg-linear-to-br from-indigo-500/30 to-rose-500/30 flex items-center justify-center mb-4">
                   {benefit.icon}
                 </div>
                 <h3 className="text-xl font-semibold mb-2">{benefit.title}</h3>

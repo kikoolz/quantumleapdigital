@@ -16,7 +16,7 @@ export default function FeaturedServices() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-3xl md:text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-white/90 to-rose-300"
+          className="text-3xl md:text-4xl font-bold mb-6 bg-clip-text text-transparent bg-linear-to-r from-indigo-300 via-white/90 to-rose-300"
         >
           Our Services
         </motion.h2>
@@ -43,7 +43,7 @@ export default function FeaturedServices() {
             className="group"
           >
             <Link href={`/services/${service.slug}`}>
-              <div className="bg-white/[0.03] border border-white/[0.08] rounded-2xl p-6 h-full transition-all duration-300 hover:bg-white/[0.05] hover:border-white/[0.15] hover:shadow-lg hover:shadow-indigo-500/10">
+              <div className="bg-white/3 border border-white/8 rounded-2xl p-6 h-full transition-all duration-300 hover:bg-white/5 hover:border-white/15 hover:shadow-lg hover:shadow-indigo-500/10">
                 <div className={`w-14 h-14 rounded-xl ${service.gradient} mb-6 flex items-center justify-center`}>
                   {service.icon}
                 </div>

@@ -1,36 +1,93 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Quantum Leap Digital Website
 
-## Getting Started
+A modern marketing website for Quantum Leap Digital built with Next.js App Router, TypeScript, Tailwind CSS v4, and Framer Motion. The site showcases services, team, and contact workflows with performant, accessible UI components.
 
-First, run the development server:
+### Tech Stack
+
+- Next.js 15 (App Router)
+- React 19, TypeScript
+- Tailwind CSS v4
+- Framer Motion
+- SendGrid (email)
+- Supabase (newsletter subscribers)
+
+### Prerequisites
+
+- Node.js 18+ (recommended: LTS)
+- npm (or yarn/pnpm/bun)
+
+### Environment Variables
+
+Create a `.env.local` at the project root:
+
+```env
+# Supabase (public keys for client usage)
+NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+
+# SendGrid (server)
+SENDGRID_API_KEY=your-sendgrid-api-key
+SENDER_EMAIL=no-reply@yourdomain.com
+```
+
+### Getting Started
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Build for production:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build && npm start
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Lint:
 
-## Learn More
+```bash
+npm run lint
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Scripts
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `dev`: Start Next.js in development mode (Turbopack enabled)
+- `build`: Create an optimized production build
+- `start`: Start the production server
+- `lint`: Run ESLint
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Project Structure (high level)
 
-## Deploy on Vercel
+```
+app/                # App Router pages, routes and layout
+components/         # UI and feature components
+lib/                # Client libraries, data, utils
+public/             # Static assets (e.g., images)
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Styling Notes
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Tailwind CSS v4 canonical class names are used (e.g., `bg-linear-to-r`, `bg-white/3`).
+- Class suggestions can be tuned via workspace setting: `tailwindCSS.lint.suggestCanonicalClasses`.
+
+### Newsletter API
+
+- Endpoint: `POST /api/newsletter` with JSON `{ email: string }`.
+- Stores subscribers in Supabase table `subscribers` and sends a welcome email via SendGrid.
+
+### Deployment
+
+- Any Node-compatible hosting works (Vercel recommended for Next.js).
+- Ensure `.env` variables are configured in your hosting provider.
+
+### License
+
+Proprietary — All rights reserved. Contact Quantum Leap Digital for usage inquiries.

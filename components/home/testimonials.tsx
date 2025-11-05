@@ -47,8 +47,8 @@ export default function Testimonials() {
 
   return (
     <section className="container mx-auto px-4 py-16 md:py-24">
-      <div className="relative bg-white/[0.02] border border-white/[0.08] rounded-3xl p-8 md:p-12 overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-indigo-500/[0.05] to-rose-500/[0.05] opacity-50" />
+      <div className="relative bg-white/2 border border-white/8 rounded-3xl p-8 md:p-12 overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-full bg-linear-to-br from-indigo-500/5 to-rose-500/5 opacity-50" />
 
         <div className="relative z-10">
           <motion.div
@@ -75,7 +75,7 @@ export default function Testimonials() {
                   transition={{ duration: 0.5 }}
                   className={cn("text-center", activeIndex !== index && "absolute inset-0")}
                 >
-                  <p className="text-xl md:text-2xl text-white/80 italic mb-8">"{testimonial.content}"</p>
+                  <p className="text-xl md:text-2xl text-white/80 italic mb-8">&ldquo;{testimonial.content}&rdquo;</p>
                   <div className="flex flex-col items-center">
                     <div className="w-16 h-16 rounded-full overflow-hidden mb-4 border-2 border-white/10">
                       <Image
@@ -96,14 +96,14 @@ export default function Testimonials() {
             <div className="flex justify-center mt-20 space-x-4">
               <button
                 onClick={prevTestimonial}
-                className="w-10 h-10 rounded-full bg-white/[0.03] border border-white/[0.08] flex items-center justify-center text-white/60 hover:text-white transition-colors"
+                className="w-10 h-10 rounded-full bg-white/3 border border-white/8 flex items-center justify-center text-white/60 hover:text-white transition-colors"
                 aria-label="Previous testimonial"
               >
                 <ChevronLeft className="h-5 w-5" />
               </button>
               <button
                 onClick={nextTestimonial}
-                className="w-10 h-10 rounded-full bg-white/[0.03] border border-white/[0.08] flex items-center justify-center text-white/60 hover:text-white transition-colors"
+                className="w-10 h-10 rounded-full bg-white/3 border border-white/8 flex items-center justify-center text-white/60 hover:text-white transition-colors"
                 aria-label="Next testimonial"
               >
                 <ChevronRight className="h-5 w-5" />
