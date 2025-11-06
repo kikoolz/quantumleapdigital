@@ -1,20 +1,21 @@
-import Link from "next/link"
-import { ArrowRight } from "lucide-react"
-import PageHeader from "@/components/shared/page-header"
-import ServiceCard from "@/components/services/service-card"
-import { services } from "@/lib/services-data"
-import CallToAction from "@/components/shared/call-to-action"
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import PageHeader from "@/components/shared/page-header";
+import ServiceCard from "@/components/services/service-card";
+import { services } from "@/lib/services-data";
+import CallToAction from "@/components/shared/call-to-action";
 
 export const metadata = {
   title: "Services | Quantum Leap Digital",
-  description: "Explore our comprehensive digital marketing services designed to elevate your brand.",
-}
+  description:
+    "Explore our comprehensive digital marketing services designed to elevate your brand.",
+};
 
 export default function ServicesPage() {
   return (
     <main>
-      <PageHeader 
-        title="Our Services" 
+      <PageHeader
+        title="Our Services"
         subtitle="Comprehensive digital marketing solutions tailored to your business needs"
       />
 
@@ -37,20 +38,29 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <section className="container mx-auto px-4 py-16 md:py-24 bg-white/[0.02] rounded-3xl my-16">
+      <section className="container mx-auto px-4 py-16 md:py-24 bg-white/2 rounded-3xl my-16">
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-white/90 to-rose-300">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 bg-clip-text text-transparent bg-linear-to-r from-indigo-300 via-white/90 to-rose-300">
             Our Approach
           </h2>
           <p className="text-white/70 mb-12 leading-relaxed">
-            We believe in a strategic, data-driven approach to digital marketing. Every campaign begins with thorough
-            research and ends with comprehensive analysis, ensuring continuous improvement and optimal results.
+            We believe in a strategic, data-driven approach to digital
+            marketing. Every campaign begins with thorough research and ends
+            with comprehensive analysis, ensuring continuous improvement and
+            optimal results.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {["Research & Discovery", "Strategy & Execution", "Analysis & Optimization"].map((step, index) => (
-              <div key={index} className="bg-white/[0.03] border border-white/[0.08] rounded-xl p-6">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-500/30 to-rose-500/30 flex items-center justify-center mb-4 mx-auto">
+            {[
+              "Research & Discovery",
+              "Strategy & Execution",
+              "Analysis & Optimization",
+            ].map((step, index) => (
+              <div
+                key={index}
+                className="bg-white/3 border border-white/8 rounded-xl p-6"
+              >
+                <div className="w-12 h-12 rounded-full bg-linear-to-br from-indigo-500/30 to-rose-500/30 flex items-center justify-center mb-4 mx-auto">
                   <span className="text-xl font-bold">{index + 1}</span>
                 </div>
                 <h3 className="text-xl font-semibold mb-2">{step}</h3>
@@ -59,7 +69,8 @@ export default function ServicesPage() {
                     "We dive deep into your business, audience, and competitors to identify opportunities."}
                   {index === 1 &&
                     "We develop and implement tailored strategies designed to achieve your specific goals."}
-                  {index === 2 && "We continuously monitor, analyze, and refine our approach to maximize your ROI."}
+                  {index === 2 &&
+                    "We continuously monitor, analyze, and refine our approach to maximize your ROI."}
                 </p>
               </div>
             ))}
@@ -74,5 +85,5 @@ export default function ServicesPage() {
         buttonLink="/contact"
       />
     </main>
-  )
+  );
 }
