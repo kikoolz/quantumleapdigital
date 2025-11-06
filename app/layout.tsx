@@ -4,7 +4,6 @@ import { ClientProviders } from "@/components/providers/client-providers";
 import Newsletter from "@/components/shared/newsletter";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Inter } from "next/font/google";
-import Script from "next/script";
 import type React from "react";
 
 import { siteMetadata } from "@/lib/metadata";
@@ -50,11 +49,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} font-sans bg-[#030303] text-white`}>
-        <Script
-          id="structured-data"
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-        />
+        <script id="structured-data" type="application/ld+json">
+          {JSON.stringify(structuredData)}
+        </script>
         <ThemeProvider attribute="class" defaultTheme="dark">
           <a
             href="#main-content"
