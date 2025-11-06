@@ -7,6 +7,7 @@ import { ClientProviders } from "@/components/providers/client-providers";
 import Newsletter from "@/components/shared/newsletter";
 
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -36,6 +37,7 @@ export default function RootLayout({
           <Footer />
           <ClientProviders />
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
