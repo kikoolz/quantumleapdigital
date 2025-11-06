@@ -1,38 +1,71 @@
-import type React from "react";
-import { Inter } from "next/font/google";
-import { ThemeProvider } from "@/components/theme-provider";
-import Navbar from "@/components/layout/navbar";
 import Footer from "@/components/layout/footer";
+import Navbar from "@/components/layout/navbar";
 import { ClientProviders } from "@/components/providers/client-providers";
 import Newsletter from "@/components/shared/newsletter";
+import { ThemeProvider } from "@/components/theme-provider";
+import { Inter } from "next/font/google";
+import Script from "next/script";
+import type React from "react";
 
-import "./globals.css";
+import { siteMetadata } from "@/lib/metadata";
 import { Analytics } from "@vercel/analytics/react";
+import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+  preload: true,
+});
 
-export const metadata = {
-  title: "Quantum Leap Digital | Modern Digital Marketing Agency",
-  description:
-    "Transform your digital presence with our innovative marketing strategies and solutions.",
-  icons: {
-    icon: "/images/logo1.png",
-    shortcut: "/images/logo1.png",
-    apple: "/images/logo1.png",
-  },
-};
+export const metadata = siteMetadata;
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Quantum Leap Digital",
+    description:
+      "Transform your digital presence with our innovative marketing strategies and solutions.",
+    url: process.env.NEXT_PUBLIC_SITE_URL || "https://quantumleapdigital.com",
+    logo: `${
+      process.env.NEXT_PUBLIC_SITE_URL || "https://quantumleapdigital.com"
+    }/images/logo1.png`,
+    sameAs: [
+      // Add your social media URLs here when available
+      // "https://twitter.com/quantumleapdigital",
+      // "https://facebook.com/quantumleapdigital",
+      // "https://linkedin.com/company/quantumleapdigital",
+    ],
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "Customer Service",
+    },
+  };
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} font-sans bg-[#030303] text-white`}>
+        <Script
+          id="structured-data"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
         <ThemeProvider attribute="class" defaultTheme="dark">
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-primary focus:text-primary-foreground focus:rounded-md"
+          >
+            Skip to main content
+          </a>
           <Navbar />
-          {children}
+          <main id="main-content" role="main">
+            {children}
+          </main>
           <Newsletter />
           <Footer />
           <ClientProviders />
