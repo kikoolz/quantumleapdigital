@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { useState } from "react";
 
 export default function ServiceFaq({
   faqs,
@@ -47,7 +47,9 @@ export default function ServiceFaq({
             )}
           >
             <button
-              onClick={() => toggleFaq(index)}
+              onClick={() => {
+                toggleFaq(index);
+              }}
               className="w-full text-left p-6 flex justify-between items-center"
             >
               <h3 className="text-lg font-medium">{faq.question}</h3>
