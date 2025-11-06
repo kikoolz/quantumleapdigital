@@ -1,5 +1,6 @@
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://quantumleapdigital.vercel.app/";
+export const siteUrl = (
+  process.env.NEXT_PUBLIC_SITE_URL || "https://quantumleapdigital.vercel.app"
+).replace(/\/+$/, "");
 
 export const siteMetadata = {
   metadataBase: new URL(siteUrl),

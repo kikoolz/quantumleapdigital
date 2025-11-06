@@ -6,7 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Inter } from "next/font/google";
 import type React from "react";
 
-import { siteMetadata } from "@/lib/metadata";
+import { siteMetadata, siteUrl } from "@/lib/metadata";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
@@ -30,13 +30,8 @@ export default function RootLayout({
     name: "Quantum Leap Digital",
     description:
       "Transform your digital presence with our innovative marketing strategies and solutions.",
-    url:
-      process.env.NEXT_PUBLIC_SITE_URL ??
-      "https://quantumleapdigital.vercel.app/",
-    logo: `${
-      process.env.NEXT_PUBLIC_SITE_URL ??
-      "https://quantumleapdigital.vercel.app/"
-    }/images/logo1.png`,
+    url: siteUrl,
+    logo: `${siteUrl}/images/logo1.png`,
     sameAs: [
       // Add your social media URLs here when available
       // "https://twitter.com/quantumleapdigital",
