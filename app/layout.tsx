@@ -30,9 +30,12 @@ export default function RootLayout({
     name: "Quantum Leap Digital",
     description:
       "Transform your digital presence with our innovative marketing strategies and solutions.",
-    url: process.env.NEXT_PUBLIC_SITE_URL || "https://quantumleapdigital.com",
+    url:
+      process.env.NEXT_PUBLIC_SITE_URL ??
+      "https://quantumleapdigital.vercel.app/",
     logo: `${
-      process.env.NEXT_PUBLIC_SITE_URL || "https://quantumleapdigital.com"
+      process.env.NEXT_PUBLIC_SITE_URL ??
+      "https://quantumleapdigital.vercel.app/"
     }/images/logo1.png`,
     sameAs: [
       // Add your social media URLs here when available
