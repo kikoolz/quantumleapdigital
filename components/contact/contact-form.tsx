@@ -2,12 +2,12 @@
 
 import type React from "react";
 
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { CheckCircle2 } from "lucide-react";
+import { useState } from "react";
 
 export default function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -27,7 +27,7 @@ export default function ContactForm() {
   if (isSubmitted) {
     return (
       <div className="text-center py-8">
-        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-indigo-500/30 to-rose-500/30 flex items-center justify-center mx-auto mb-6">
+        <div className="w-16 h-16 rounded-full bg-linear-to-br from-indigo-500/30 to-rose-500/30 flex items-center justify-center mx-auto mb-6">
           <CheckCircle2 className="h-8 w-8 text-green-400" />
         </div>
         <h3 className="text-2xl font-semibold mb-4">Message Sent!</h3>
@@ -57,7 +57,7 @@ export default function ContactForm() {
               id="name"
               placeholder="Your name"
               required
-              className="bg-white/[0.03] border-white/[0.08] focus:border-indigo-500"
+              className="bg-white/3 border-white/8 focus:border-indigo-500"
             />
           </div>
 
@@ -68,7 +68,7 @@ export default function ContactForm() {
               type="email"
               placeholder="Your email"
               required
-              className="bg-white/[0.03] border-white/[0.08] focus:border-indigo-500"
+              className="bg-white/3 border-white/8 focus:border-indigo-500"
             />
           </div>
         </div>
@@ -79,7 +79,7 @@ export default function ContactForm() {
             id="subject"
             placeholder="Subject of your message"
             required
-            className="bg-white/[0.03] border-white/[0.08] focus:border-indigo-500"
+            className="bg-white/3 border-white/8 focus:border-indigo-500"
           />
         </div>
 
@@ -90,14 +90,14 @@ export default function ContactForm() {
             placeholder="Your message"
             rows={6}
             required
-            className="bg-white/[0.03] border-white/[0.08] focus:border-indigo-500 resize-none"
+            className="bg-white/3 border-white/8 focus:border-indigo-500 resize-none"
           />
         </div>
 
         <Button
           type="submit"
           disabled={isSubmitting}
-          className="w-full bg-gradient-to-r from-indigo-500 to-rose-500 hover:from-indigo-600 hover:to-rose-600 text-white"
+          className="w-full bg-linear-to-r from-indigo-500 to-rose-500 hover:from-indigo-600 hover:to-rose-600 text-white"
         >
           {isSubmitting ? "Sending..." : "Send Message"}
         </Button>
