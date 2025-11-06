@@ -1,33 +1,11 @@
-const DEFAULT_SITE_URL = "https://quantumleapdigital.vercel.app";
-
-function normalizeSiteUrl(rawValue: string | undefined): string {
-  const trimmed = (rawValue ?? "").trim();
-
-  // If empty after trim, use default immediately
-  if (!trimmed) return DEFAULT_SITE_URL;
-
-  // Remove trailing slashes
-  const withoutTrailing = trimmed.replace(/\/+$/, "");
-
-  // Ensure a scheme; treat protocol-relative URLs as https
-  const protocolFixed = withoutTrailing.replace(/^\/\//, "https://");
-  const withScheme = /^(https?:)\/\//i.test(protocolFixed)
-    ? protocolFixed
-    : `https://${protocolFixed}`;
-
-  // Validate and fallback if invalid
-  try {
-    // new URL will throw if invalid; also normalizes the URL
-    return new URL(withScheme).toString().replace(/\/+$/, "");
-  } catch {
-    return DEFAULT_SITE_URL;
-  }
-}
+import { normalizeSiteUrl } from "./url-utils";
 
 export const siteUrl = normalizeSiteUrl(process.env.NEXT_PUBLIC_SITE_URL);
 
+const metadataBaseUrl = new URL(siteUrl);
+
 export const siteMetadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: metadataBaseUrl,
   title: {
     default: "Quantum Leap Digital | Modern Digital Marketing Agency",
     template: "%s | Quantum Leap Digital",
