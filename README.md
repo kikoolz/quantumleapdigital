@@ -1,4 +1,4 @@
-![Quantum Leap Digital](/images/quantumleap.png)
+![Quantum Leap Digital](public/images/quantumleap.png)
 
 ## Quantum Leap Digital Website
 
