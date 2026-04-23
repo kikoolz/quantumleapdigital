@@ -103,7 +103,7 @@ export default function Footer() {
               <li>Prime Cure Building</li>
               <li>Abu Dhabi, UAE</li>
               <li>info@quantumleapdigital.com</li>
-              <li>+971-524419186</li>
+              <li>+971-52-3972-152</li>
             </ul>
           </div>
         </div>
