@@ -2,33 +2,31 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { Linkedin } from "lucide-react";
-import { SiX } from "@icons-pack/react-simple-icons";
 
 const team = [
   {
     name: "Kenneth Kikoole",
     position: "Software Engineer",
-    bio: "With ample years of experience in digital marketing, Kenneth leads our team with vision and expertise.",
-    image: "/images/kenneth.jpg?height=400&width=400",
+    bio: "With ample years of experience in software engineering, Kenneth leads our team with vision and expertise.",
+    image: "/images/kenneth.JPG?height=400&width=400",
   },
   {
-    name: "Phiona Komukyeya",
+    name: "Anitah Awori",
     position: "Digital Marketing Specialist",
-    bio: "Phiona brings creative excellence to every project, ensuring our clients' brands stand out.",
-    image: "/images/phiona.jpeg?height=400&width=400",
+    bio: "Anitah brings creative excellence to every project, ensuring our clients' brands stand out.",
+    image: "/images/anitah.JPG?height=400&width=400",
   },
   {
-    name: "Michelle Batanda",
+    name: "Ritah Nakabiito",
     position: "Head of Strategy",
-    bio: "Michelle develops data-driven strategies that deliver measurable results for our clients.",
-    image: "/images/phiona.jpeg?height=400&width=400",
+    bio: "Ritah develops data-driven strategies that deliver measurable results for our clients.",
+    image: "/images/rita.jpg?height=400&width=400",
   },
   {
-    name: "Jordan Smith",
+    name: "Ivan Batanda",
     position: "Technical Lead",
-    bio: "Jordan ensures our technical implementations are cutting-edge, scalable, and effective.",
-    image: "/images/kenneth.jpg?height=400&width=400",
+    bio: "Ivan ensures our technical implementations are cutting-edge, scalable, and effective.",
+    image: "/images/ivan.jpg?height=400&width=400",
   },
 ];
 
@@ -76,20 +74,7 @@ export default function TeamSection() {
               </div>
               <div className="p-6">
                 <p className="text-white/70 mb-4">{member.bio}</p>
-                <div className="flex space-x-3">
-                  <a
-                    href="#"
-                    className="w-8 h-8 rounded-full bg-white/3 border border-white/8 flex items-center justify-center text-white/60 hover:text-white transition-colors"
-                  >
-                    <SiX className="h-4 w-4" />
-                  </a>
-                  <a
-                    href="#"
-                    className="w-8 h-8 rounded-full bg-white/3 border border-white/8 flex items-center justify-center text-white/60 hover:text-white transition-colors"
-                  >
-                    <Linkedin className="h-4 w-4" />
-                  </a>
-                </div>
+               
               </div>
             </div>
           </motion.div>

@@ -12,16 +12,42 @@ import { useState } from "react";
 export default function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setError(null);
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      name: formData.get("name") as string,
+      email: formData.get("email") as string,
+      subject: formData.get("subject") as string,
+      message: formData.get("message") as string,
+    };
 
-    setIsSubmitting(false);
-    setIsSubmitted(true);
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || "Failed to send message");
+      }
+
+      setIsSubmitted(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to send message");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (isSubmitted) {
@@ -35,7 +61,10 @@ export default function ContactForm() {
           Thank you for reaching out. We will get back to you within 24 hours.
         </p>
         <Button
-          onClick={() => setIsSubmitted(false)}
+          onClick={() => {
+            setIsSubmitted(false);
+            setError(null);
+          }}
           variant="outline"
           className="border-white/20 text-white hover:bg-white/5"
         >
@@ -49,12 +78,19 @@ export default function ContactForm() {
     <form onSubmit={handleSubmit}>
       <h3 className="text-2xl font-semibold mb-6">Send Us a Message</h3>
 
+      {error && (
+        <div className="bg-red-500/10 border border-red-500/20 text-red-400 px-4 py-3 rounded-lg mb-6">
+          {error}
+        </div>
+      )}
+
       <div className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-2">
             <Label htmlFor="name">Name</Label>
             <Input
               id="name"
+              name="name"
               placeholder="Your name"
               required
               className="bg-white/3 border-white/8 focus:border-indigo-500"
@@ -65,6 +101,7 @@ export default function ContactForm() {
             <Label htmlFor="email">Email</Label>
             <Input
               id="email"
+              name="email"
               type="email"
               placeholder="Your email"
               required
@@ -77,6 +114,7 @@ export default function ContactForm() {
           <Label htmlFor="subject">Subject</Label>
           <Input
             id="subject"
+            name="subject"
             placeholder="Subject of your message"
             required
             className="bg-white/3 border-white/8 focus:border-indigo-500"
@@ -87,6 +125,7 @@ export default function ContactForm() {
           <Label htmlFor="message">Message</Label>
           <Textarea
             id="message"
+            name="message"
             placeholder="Your message"
             rows={6}
             required

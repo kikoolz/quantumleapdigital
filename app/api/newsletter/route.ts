@@ -3,9 +3,24 @@ import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { z } from "zod";
 
+export async function OPTIONS() {
+  return new NextResponse(null, {
+    status: 204,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type",
+    },
+  });
+}
+
 // Initialize Resend lazily
 function getResend() {
   if (!process.env.RESEND_API_KEY) {
+    if (process.env.NODE_ENV !== "production") {
+      console.warn("RESEND_API_KEY is not configured - email sending will be skipped");
+      return null;
+    }
     throw new Error("RESEND_API_KEY is not configured");
   }
   return new Resend(process.env.RESEND_API_KEY);
@@ -38,7 +53,12 @@ export async function POST(request: Request) {
       console.warn(`Rate limit hit for IP: ${ip}`);
       return NextResponse.json(
         { error: "Please wait a minute before trying again." },
-        { status: 429 }
+        {
+          status: 429,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
       );
     }
 
@@ -68,7 +88,12 @@ export async function POST(request: Request) {
         if (DEBUG) console.log("Existing subscriber found:", existingUsers[0]);
         return NextResponse.json(
           { error: "This email is already subscribed." },
-          { status: 409 }
+          {
+            status: 409,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+            },
+          }
         );
       }
 
@@ -89,7 +114,12 @@ export async function POST(request: Request) {
       ) {
         return NextResponse.json(
           { error: "This email is already subscribed." },
-          { status: 409 }
+          {
+            status: 409,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+            },
+          }
         );
       }
 
@@ -100,7 +130,12 @@ export async function POST(request: Request) {
             error:
               "Database connection failed. Please check your database configuration.",
           },
-          { status: 503 }
+          {
+            status: 503,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+            },
+          }
         );
       }
 
@@ -111,11 +146,14 @@ export async function POST(request: Request) {
     if (DEBUG) console.log("Sending welcome email...");
     try {
       const resend = getResend();
-      await resend.emails.send({
-        from: process.env.SENDER_EMAIL!,
-        to: email,
-        subject: "Welcome to Quantum Leap Digital Newsletter!",
-        html: `
+      if (!resend) {
+        if (DEBUG) console.log("Skipping email send - RESEND_API_KEY not configured");
+      } else {
+        await resend.emails.send({
+          from: process.env.SENDER_EMAIL!,
+          to: email,
+          subject: "Welcome to Quantum Leap Digital Newsletter!",
+          html: `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
               <h1 style="color: #4F46E5;">Welcome to Quantum Leap Digital!</h1>
               <p>Thank you for subscribing to our newsletter. We're excited to share our latest updates, insights, and special offers with you.</p>
@@ -125,8 +163,9 @@ export async function POST(request: Request) {
               </div>
             </div>
           `,
-      });
-      if (DEBUG) console.log("Welcome email sent successfully");
+        });
+        if (DEBUG) console.log("Welcome email sent successfully");
+      }
     } catch (emailError) {
       console.error("Resend error:", emailError);
       // Continue execution - don't throw error for email failure
@@ -152,13 +191,23 @@ export async function POST(request: Request) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: "Please enter a valid email address." },
-        { status: 400 }
+        {
+          status: 400,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
       );
     }
 
     return NextResponse.json(
       { error: "Failed to subscribe. Please try again later." },
-      { status: 500 }
+      {
+        status: 500,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+      }
     );
   }
 }

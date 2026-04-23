@@ -2,14 +2,10 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { Pacifico } from "next/font/google";
 import { cn } from "@/lib/utils";
 
-const pacifico = Pacifico({
-  subsets: ["latin"],
-  weight: ["400"],
-  variable: "--font-pacifico",
-});
+// Import Pacifico font via CSS to avoid Turbopack compatibility issues
+import "./pacifico-font.css";
 
 function ElegantShape({
   className,
@@ -183,10 +179,7 @@ export default function HeroGeometric({
               </span>
               <br />
               <span
-                className={cn(
-                  "bg-clip-text text-transparent bg-linear-to-r from-indigo-300 via-white/90 to-rose-300 ",
-                  pacifico.className
-                )}
+                className="bg-clip-text text-transparent bg-linear-to-r from-indigo-300 via-white/90 to-rose-300 font-pacifico"
               >
                 {title2}
               </span>
