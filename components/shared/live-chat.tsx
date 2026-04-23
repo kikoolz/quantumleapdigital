@@ -9,25 +9,55 @@ export default function LiveChat() {
     []
   );
   const [inputText, setInputText] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!inputText.trim()) return;
+    if (!inputText.trim() || isLoading) return;
 
-    // Add user message
-    setMessages((prev) => [...prev, { text: inputText, isUser: true }]);
+    const userMessage = inputText;
+    setMessages((prev) => [...prev, { text: userMessage, isUser: true }]);
     setInputText("");
+    setIsLoading(true);
 
-    // Simulate automated response
-    setTimeout(() => {
+    // Build conversation history for API
+    const conversationHistory = messages.map((msg) => ({
+      role: msg.isUser ? "user" as const : "assistant" as const,
+      content: msg.text,
+    }));
+
+    try {
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message: userMessage,
+          conversationHistory,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to get response");
+      }
+
+      setMessages((prev) => [
+        ...prev,
+        { text: data.message, isUser: false },
+      ]);
+    } catch (error) {
+      console.error("Chat error:", error);
       setMessages((prev) => [
         ...prev,
         {
-          text: "Thanks for your message! Our team will get back to you soon.",
+          text: "Sorry, I'm having trouble connecting. Please try again or contact us via WhatsApp.",
           isUser: false,
         },
       ]);
-    }, 1000);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -61,16 +91,25 @@ export default function LiveChat() {
                 className={`mb-4 ${msg.isUser ? "text-right" : "text-left"}`}
               >
                 <div
-                  className={`inline-block p-3 rounded-lg ${
+                  className={`inline-block p-3 rounded-lg backdrop-blur-lg ${
                     msg.isUser
-                      ? "bg-indigo-500 text-white"
-                      : "bg-gray-700 text-white"
+                      ? "bg-indigo-600/90 ring-1 ring-white/10 text-white"
+                      : "bg-slate-800/90 ring-1 ring-white/10 text-white"
                   }`}
                 >
                   {msg.text}
                 </div>
               </div>
             ))}
+            {isLoading && (
+              <div className="mb-4 text-left">
+                    <div className="flex gap-1">
+                    <span className="w-2 h-2 bg-white rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
+                    <span className="w-2 h-2 bg-white rounded-full animate-bounce" style={{ animationDelay: '600ms' }}></span>
+                    <span className="w-2 h-2 bg-white rounded-full animate-bounce" style={{ animationDelay: '1200ms' }}></span>
+                  </div>
+              </div>
+            )}
           </div>
 
           <form
