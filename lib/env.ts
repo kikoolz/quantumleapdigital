@@ -5,20 +5,27 @@ const requiredEnvVars = {
   NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
 } as const;
 
-const missingEnvVars = Object.entries(requiredEnvVars)
-  .filter(([, value]) => !value)
-  .map(([key]) => key);
+function validateEnv() {
+  const missingEnvVars = Object.entries(requiredEnvVars)
+    .filter(([, value]) => !value)
+    .map(([key]) => key);
 
-if (missingEnvVars.length > 0 && process.env.NODE_ENV === "production") {
-  throw new Error(
-    `Missing required environment variables: ${missingEnvVars.join(", ")}`
-  );
+  if (missingEnvVars.length > 0 && process.env.NODE_ENV === "production") {
+    throw new Error(
+      `Missing required environment variables: ${missingEnvVars.join(", ")}`
+    );
+  }
+
+  if (missingEnvVars.length > 0 && process.env.NODE_ENV !== "production") {
+    console.warn(
+      `Warning: Missing environment variables: ${missingEnvVars.join(", ")}`
+    );
+  }
 }
 
-if (missingEnvVars.length > 0 && process.env.NODE_ENV !== "production") {
-  console.warn(
-    `Warning: Missing environment variables: ${missingEnvVars.join(", ")}`
-  );
+// Only validate at runtime, not during build
+if (typeof window === "undefined" && process.env.NEXT_PHASE !== "phase-production-build") {
+  validateEnv();
 }
 
 export const env = requiredEnvVars as {
