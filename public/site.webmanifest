@@ -1,0 +1,17 @@
+{
+  "name": "Quantum Leap Digital",
+  "short_name": "Quantum Leap",
+  "description": "Transform your digital presence with our innovative marketing strategies and solutions.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#030303",
+  "theme_color": "#030303",
+  "icons": [
+    {
+      "src": "/images/logo1.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

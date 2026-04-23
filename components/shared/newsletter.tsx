@@ -34,12 +34,17 @@ export default function Newsletter() {
         body: JSON.stringify({ email }),
       });
 
-      const data: SubscribeResponse = await response.json();
-
       if (!response.ok) {
-        throw new Error(data.error || "Failed to subscribe");
+        const text = await response.text();
+        try {
+          const data: SubscribeResponse = JSON.parse(text);
+          throw new Error(data.error || "Failed to subscribe");
+        } catch {
+          throw new Error(text || "Failed to subscribe");
+        }
       }
 
+      const data: SubscribeResponse = await response.json();
       setStatus("success");
       setMessage(data.message || "Thank you for subscribing!");
       setEmail("");
@@ -65,7 +70,7 @@ export default function Newsletter() {
   };
 
   return (
-    <section className="w-full bg-gradient-to-br from-indigo-500/10 via-transparent to-rose-500/10 p-8 rounded-2xl">
+    <section className="w-full p-8 rounded-2xl">
       <div className="max-w-xl mx-auto text-center">
         <h2 className="text-2xl md:text-3xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-white/90 to-rose-300">
           Stay Updated

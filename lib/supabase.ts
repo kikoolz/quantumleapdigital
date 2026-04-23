@@ -1,4 +1,5 @@
 import { neon } from "@neondatabase/serverless";
+import "@/lib/env";
 
 let sql: ReturnType<typeof neon> | null = null;
 
@@ -10,6 +11,10 @@ function getDatabase() {
   const databaseUrl = process.env.DATABASE_URL;
 
   if (!databaseUrl) {
+    if (process.env.NODE_ENV !== "production") {
+      console.warn("DATABASE_URL is not configured - database operations will fail");
+      throw new Error("DATABASE_URL is not configured");
+    }
     throw new Error("Missing env.DATABASE_URL");
   }
 
@@ -17,11 +22,9 @@ function getDatabase() {
   return sql;
 }
 
-export const db = new Proxy({} as ReturnType<typeof neon>, {
-  get(_target, prop) {
-    return getDatabase()[prop as keyof ReturnType<typeof neon>];
-  },
-});
+export function db(...args: Parameters<ReturnType<typeof neon>>) {
+  return getDatabase()(...args);
+}
 
 // For backward compatibility, export as supabase
 export const supabase = db;

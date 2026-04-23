@@ -13,7 +13,7 @@ const testimonials = [
       "Quantum Leap Digital transformed our online presence completely. Their strategic approach to digital marketing helped us increase our leads by 150% in just three months.",
     author: "David Johnson",
     position: "Marketing Director, Furnico Furniture.",
-    image: "/images/kenneth.jpg",
+    image: "/images/kenneth.JPG",
   },
   {
     id: 2,
@@ -21,7 +21,7 @@ const testimonials = [
       "Working with Quantum Leap Digital has been a game-changer for our business. Their team's expertise in SEO and content marketing has significantly improved our organic traffic and conversion rates.",
     author: "Michelle Owen",
     position: "CEO, GrowthWave",
-    image: "/images/phiona.jpeg",
+    image: "/images/kenneth.JPG",
   },
   {
     id: 3,
@@ -29,7 +29,7 @@ const testimonials = [
       "The social media strategy developed by Quantum Leap Digital helped us connect with our audience in ways we never thought possible. Our engagement rates have skyrocketed!",
     author: "Costa Rodriguez",
     position: "Social Media Manager, Pulse Brands",
-    image: "/images/kenneth.jpg",
+    image: "/images/kenneth.JPG",
   },
 ];
 
@@ -79,7 +79,7 @@ export default function Testimonials() {
                     activeIndex !== index && "absolute inset-0"
                   )}
                 >
-                  <p className="text-xl md:text-2xl text-white/80 italic mb-8">
+                  <p className="text-xl md:text-2xl text-white/80 italic mb-4 md:mb-8">
                     {testimonial.content}
                   </p>
                   <div className="flex flex-col items-center">
@@ -101,20 +101,20 @@ export default function Testimonials() {
               ))}
             </div>
 
-            <div className="flex justify-center mt-20 space-x-4">
+            <div className="flex justify-center mt-30 md:mt-20 space-x-4">
               <button
                 onClick={prevTestimonial}
-                className="w-10 h-10 rounded-full bg-white/3 border border-white/8 flex items-center justify-center text-white/60 hover:text-white transition-colors"
+                className="w-12 h-12 md:w-10 md:h-10 rounded-full bg-white/3 border border-white/8 flex items-center justify-center text-white/60 hover:text-white transition-colors"
                 aria-label="Previous testimonial"
               >
-                <ChevronLeft className="h-5 w-5" />
+                <ChevronLeft className="h-6 w-6 md:h-5 md:w-5" />
               </button>
               <button
                 onClick={nextTestimonial}
-                className="w-10 h-10 rounded-full bg-white/3 border border-white/8 flex items-center justify-center text-white/60 hover:text-white transition-colors"
+                className="w-12 h-12 md:w-10 md:h-10 rounded-full bg-white/3 border border-white/8 flex items-center justify-center text-white/60 hover:text-white transition-colors"
                 aria-label="Next testimonial"
               >
-                <ChevronRight className="h-5 w-5" />
+                <ChevronRight className="h-6 w-6 md:h-5 md:w-5" />
               </button>
             </div>
           </div>

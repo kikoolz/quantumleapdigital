@@ -6,7 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Inter } from "next/font/google";
 import type React from "react";
 
-import { siteMetadata, siteUrl } from "@/lib/metadata";
+import { siteMetadata, siteUrl, viewport as viewportConfig } from "@/lib/metadata";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
@@ -18,6 +18,7 @@ const inter = Inter({
 });
 
 export const metadata = siteMetadata;
+export const viewport = viewportConfig;
 
 export default function RootLayout({
   children,
