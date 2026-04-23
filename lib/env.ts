@@ -6,7 +6,7 @@ const requiredEnvVars = {
 } as const;
 
 const missingEnvVars = Object.entries(requiredEnvVars)
-  .filter(([_, value]) => !value)
+  .filter(([key, value]) => !value)
   .map(([key]) => key);
 
 if (missingEnvVars.length > 0 && process.env.NODE_ENV === "production") {
