@@ -1,3 +1,5 @@
+![Quantum Leap Digital](/images/quantumleap.png)
+
 ## Quantum Leap Digital Website
 
 A modern marketing website for Quantum Leap Digital built with Next.js App Router, TypeScript, Tailwind CSS v4, and Framer Motion. The site showcases services, team, and contact workflows with performant, accessible UI components.
