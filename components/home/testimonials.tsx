@@ -11,25 +11,25 @@ const testimonials = [
     id: 1,
     content:
       "Quantum Leap Digital transformed our online presence completely. Their strategic approach to digital marketing helped us increase our leads by 150% in just three months.",
-    author: "David Johnson",
-    position: "Marketing Director, Furnico Furniture.",
-    image: "/images/kenneth.JPG",
+    author: "Robert Ayange",
+    position: "MD, Furnico Furniture.",
+    image: "/images/ayange-robert.jpg",
   },
   {
     id: 2,
     content:
-      "Working with Quantum Leap Digital has been a game-changer for our business. Their team's expertise in SEO and content marketing has significantly improved our organic traffic and conversion rates.",
-    author: "Michelle Owen",
-    position: "CEO, GrowthWave",
-    image: "/images/kenneth.JPG",
+      "Working with Quantum Leap Digital has been a game-changer for our business. Their team's expertise in content marketing has significantly improved our organic traffic and conversion rates.",
+    author: "Apunto Dante",
+    position: "Marketing Manager, GrowthWave",
+    image: "/images/apuntodante.jpg",
   },
   {
     id: 3,
     content:
       "The social media strategy developed by Quantum Leap Digital helped us connect with our audience in ways we never thought possible. Our engagement rates have skyrocketed!",
-    author: "Costa Rodriguez",
-    position: "Social Media Manager, Pulse Brands",
-    image: "/images/kenneth.JPG",
+    author: "Abdulkadir Muhammad Sani",
+    position: "Social Media Manager, Pulse Lounge Cafe",
+    image: "/images/abdulkadir-muhammad-sani.jpg",
   },
 ];
 
