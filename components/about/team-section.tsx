@@ -25,7 +25,7 @@ const team = [
   {
     name: "Ivan Batanda",
     position: "Technical Lead",
-    bio: "Ivan ensures our technical implementations are cutting-edge, scalable, and effective.",
+    bio: "Ivan ensures our technical implementations are not only cutting-edge but also scalable and effective.",
     image: "/images/ivan.jpg?height=400&width=400",
   },
 ];
@@ -64,6 +64,7 @@ export default function TeamSection() {
                   src={member.image}
                   alt={member.name}
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-[#030303] via-transparent opacity-80" />

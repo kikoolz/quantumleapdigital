@@ -25,7 +25,7 @@ export default function AboutPage() {
               Our Journey
             </h2>
             <p className="text-white/70 mb-6 leading-relaxed">
-              Founded in 2020, Quantum Leap Digital began with a simple mission:
+              Founded in 2022, Quantum Leap Digital began with a simple mission:
               to help businesses navigate the complex digital landscape and
               achieve meaningful results.
             </p>
@@ -47,6 +47,7 @@ export default function AboutPage() {
               src="/images/about.jpg?height=800&width=800"
               alt="Our team collaborating"
               fill
+              sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
             />
           </div>

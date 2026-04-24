@@ -16,6 +16,7 @@ export default function CallToAction({
     <section className="container mx-auto px-4 py-16 md:py-24">
       <div className="relative rounded-3xl overflow-hidden">
         <div className="absolute inset-0 bg-linear-to-br from-indigo-600/20 to-rose-600/20" />
+        <div className="absolute inset-0 bg-repeat bg-center bg-[url('/images/bgwhatsapp.png')] opacity-10 -scale-x-100" />
 
         <div className="relative z-10 py-16 md:py-24 px-6 md:px-12 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6 bg-clip-text text-transparent bg-linear-to-r from-white to-white/80">

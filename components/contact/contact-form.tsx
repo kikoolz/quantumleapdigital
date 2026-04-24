@@ -75,7 +75,9 @@ export default function ContactForm() {
   }
 
   return (
+    
     <form onSubmit={handleSubmit}>
+      
       <h3 className="text-2xl font-semibold mb-6">Send Us a Message</h3>
 
       {error && (

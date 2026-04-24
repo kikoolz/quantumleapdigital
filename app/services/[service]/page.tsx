@@ -64,7 +64,7 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
           </div>
           <div className="order-1 md:order-2 relative h-[300px] md:h-[400px] rounded-2xl overflow-hidden">
             
-            <Image src={service.image} alt={service.title} fill className="object-cover" />
+            <Image src={service.image} alt={service.title} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
           </div>
         </div>
       </section>
