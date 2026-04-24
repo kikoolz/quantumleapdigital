@@ -65,7 +65,7 @@ export default function LiveChat() {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 left-6 bg-gradient-to-r from-indigo-500 to-violet-500 text-white p-4 rounded-full shadow-lg transition-transform hover:scale-110 z-50"
+          className="fixed bottom-6 left-6 ring-1 ring-white/20 text-white p-4 rounded-full shadow-lg transition-transform hover:scale-110 z-50"
           aria-label="Open chat"
         >
           <MessagesSquare className="w-6 h-6" />
@@ -73,12 +73,15 @@ export default function LiveChat() {
       )}
 
       {isOpen && (
-        <div className="fixed bottom-6 left-6 w-80 bg-gray-900 rounded-lg shadow-xl z-50">
-          <div className="p-4 bg-gradient-to-r from-indigo-500 to-violet-500 rounded-t-lg flex justify-between items-center">
-            <h3 className="text-white font-medium">Live Chat</h3>
+        <div className="fixed bottom-6 left-6 w-80 ring-1 ring-white/20 backdrop-blur-2xl rounded-lg shadow-xl z-50">
+          <div className="p-4 bg-linear-to-r from-indigo-200 via-white/90 to-rose-200 border-b border-black/50 rounded-t-lg flex justify-between items-center">
+            <div className="flex items-center gap-2">
+              <MessagesSquare className="w-5 h-5 text-black" />
+              <h3 className="text-black font-medium">Live Chat</h3>
+            </div>
             <button
               onClick={() => setIsOpen(false)}
-              className="text-white hover:text-gray-200"
+              className="text-black hover:text-gray-200"
             >
               <X className="w-5 h-5" />
             </button>
@@ -93,7 +96,7 @@ export default function LiveChat() {
                 <div
                   className={`inline-block p-3 rounded-lg backdrop-blur-lg ${
                     msg.isUser
-                      ? "bg-indigo-600/90 ring-1 ring-white/10 text-white"
+                      ? "bg-linear-to-r from-indigo-200 via-white/90 to-rose-200 ring-1 ring-gray-300 text-black"
                       : "bg-slate-800/90 ring-1 ring-white/10 text-white"
                   }`}
                 >
@@ -114,14 +117,14 @@ export default function LiveChat() {
 
           <form
             onSubmit={handleSubmit}
-            className="p-4 border-t border-gray-700"
+            className="p-4 border-t border-white/20"
           >
             <input
               type="text"
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               placeholder="Type your message..."
-              className="w-full p-2 rounded bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full p-2 rounded ring-1 ring-white/20 backdrop-blur-2xl text-white focus:outline-none focus:ring-2 focus:ring-slate-500"
             />
           </form>
         </div>
