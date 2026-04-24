@@ -9,8 +9,27 @@ const chatSchema = z.object({
   })).optional(),
 });
 
+const rateLimit = new Map<string, number>();
+const DEBUG = process.env.NODE_ENV !== "production";
+
 export async function POST(request: Request) {
   try {
+    // Rate limiting check
+    const ip = request.headers.get("x-forwarded-for") || "anonymous";
+    const lastRequest = rateLimit.get(ip) || 0;
+    const timeSinceLastRequest = Date.now() - lastRequest;
+
+    if (timeSinceLastRequest < 6000) {
+      console.warn(`Rate limit hit for IP: ${ip}`);
+      return NextResponse.json(
+        { error: "Please wait a few seconds before trying again." },
+        { status: 429 }
+      );
+    }
+
+    // Update rate limit timestamp
+    rateLimit.set(ip, Date.now());
+
     const body = await request.json();
     const { message, conversationHistory = [] } = chatSchema.parse(body);
 
