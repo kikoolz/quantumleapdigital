@@ -81,7 +81,7 @@ export default function LiveChat() {
             </div>
             <button
               onClick={() => setIsOpen(false)}
-              className="text-black hover:text-gray-200"
+              className="text-black hover:scale-120 cursor-pointer transition-transform"
             >
               <X className="w-5 h-5" />
             </button>
