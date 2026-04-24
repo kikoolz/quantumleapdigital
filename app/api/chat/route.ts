@@ -58,7 +58,7 @@ RULES:
           "X-Title": "Quantum Leap Digital AI Chat",
         },
         body: JSON.stringify({
-          model: "mistralai/mistral-7b-instruct-v0.1",
+          model: "meta-llama/llama-3.1-8b-instruct",
           messages,
           max_tokens: 100,
           temperature: 0.7,
