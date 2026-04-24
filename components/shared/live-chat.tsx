@@ -65,7 +65,7 @@ export default function LiveChat() {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 left-6 ring-1 ring-white/20 text-white p-4 rounded-full shadow-lg transition-transform hover:scale-110 z-50"
+          className="fixed bottom-6 left-6 ring-1 ring-white/20 backdrop-blur-2xl text-white p-4 rounded-full shadow-lg transition-transform hover:scale-110 z-50"
           aria-label="Open chat"
         >
           <MessagesSquare className="w-6 h-6" />
